@@ -1,0 +1,78 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.6.RELEASE"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+    }
+}
+
+plugins {
+    id "java"
+    id "application"
+    id "org.springframework.boot" version "2.2.6.RELEASE"
+}
+
+mainClassName = 'com.sironi.salon.Application'
+
+dependencies {
+    compile project(':contract')
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: "jacoco"
+    apply plugin: 'io.spring.dependency-management'
+
+
+    group = 'com.sironi'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+    ext {
+        set('springBootVersion', "2.2.6.RELEASE")
+        set('springBootAdminVersion', "2.2.6")
+    }
+    dependencyManagement {
+        imports {
+//            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Greenwich.RC2'
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+//            mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+        }
+    }
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor("org.projectlombok:lombok")
+        runtimeOnly 'com.oracle.ojdbc:ojdbc8'
+        annotationProcessor 'org.projectlombok:lombok'
+        compile('io.springfox:springfox-swagger2:2.9.2')
+        compile('io.springfox:springfox-swagger-ui:2.9.2')
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

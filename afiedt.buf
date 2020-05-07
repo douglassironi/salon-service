@@ -1,0 +1,2 @@
+select 'DROP TABLE '|| table_name||';' from cat where table_type='TABLE'
+/

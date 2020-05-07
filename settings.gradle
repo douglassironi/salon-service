@@ -1,0 +1,4 @@
+rootProject.name = 'salon-service'
+include 'contract'
+include 'impl'
+
