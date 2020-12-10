@@ -1,23 +1,23 @@
-package com.sironi.salon.custumer.mapper;
+package com.sironi.salon.employer.mapper;
 
 
-import com.sironi.salon.custumer.models.CustomerModel;
+import com.sironi.salon.employer.models.EmployerModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-public interface CustumerMapper {
-    @Select("SELECT * FROM pessoas WHERE CODIGO = #{id}")
-    CustomerModel getCustumerById(@Param("id") Long id);
+public interface EmployerMapper {
+    @Select("SELECT * FROM pessoas WHERE CODIGO = #{id} and tipo_pessoa = 'A'")
+    EmployerModel getEmployerById(@Param("id") Long id);
 
-    @Select("SELECT * FROM pessoas WHERE nome = #{name}")
-    List<CustomerModel> getCustumerByName(@Param("name") String name);
+    @Select("SELECT * FROM pessoas WHERE nome = #{name} and tipo_pessoa = 'A'")
+    List<EmployerModel> getCustumerByName(@Param("name") String name);
 
 
-    @Select("SELECT * FROM pessoas")
-    List<CustomerModel> getAllCustumer();
+    @Select("SELECT * FROM pessoas where  tipo_pessoa = 'A'")
+    List<EmployerModel> getAllCustumer();
 
 
     @Insert("insert into pessoas (codigo, " +
@@ -48,5 +48,5 @@ public interface CustumerMapper {
             "#{customer.email ,jdbcType=NVARCHAR}," +
             "#{customer.cidade ,jdbcType=NVARCHAR}," +
             "#{customer.uf ,jdbcType=NVARCHAR })")
-    void setCustumer(@Param("customer") CustomerModel customer);
+    void setCustumer(@Param("customer") EmployerModel customer);
 }

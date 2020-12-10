@@ -20,18 +20,18 @@ public class RestProductEndpoint {
     private  ProductMapper productMapper;
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    public List<ProductModel> Client(){
+    public List<ProductModel> listProduct(){
         return  productMapper.getProductByDescription("");
 
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ProductModel getById(@PathVariable(name = "id") Long id){
+    public ProductModel getProductById(@PathVariable(name = "id") Long id){
          return productMapper.getProductById(id);
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public void addClient(@RequestBody(required = true) ProductModel productModel){
+    public void addProduct(@RequestBody(required = true) ProductModel productModel){
          productMapper.setProduct(productModel);
 
     }
